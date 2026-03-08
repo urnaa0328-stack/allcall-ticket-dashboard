@@ -21,7 +21,7 @@ CARD_BORDER = "rgba(255,255,255,0.12)"
 # =========================
 # LOGO + FILE PATH
 # =========================
-DEFAULT_XLSX = str(Path.home() / "Documents" / "complains_2026.01.01_2026.03.05.xlsx")
+DEFAULT_XLSX = "data/complains.xlsx"
 SHEET_NAME = "Report"
 
 def resolve_logo_path() -> str | None:
