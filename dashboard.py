@@ -26,6 +26,7 @@ SHEET_NAME = "Report"
 
 def resolve_logo_path() -> str | None:
     candidates = [
+        Path("logo.png"),
         Path("assets/logo.png"),
         Path.home() / "Documents" / "logo.png",
         Path("/mnt/data/logo.png"),
