@@ -22,7 +22,37 @@ MUTED = "rgba(241,241,245,0.72)"
 CARD_BG = "rgba(255,255,255,0.10)"
 CARD_BORDER = "rgba(255,255,255,0.10)"
 
-EXCEL_PATH = str(Path.home() / "Documents" / "allcall_bi_data.xlsx")
+from pathlib import Path
+
+def resolve_excel_path():
+
+    # Cloud repo path
+    cloud_path = Path("data/allcall_bi_data.xlsx")
+
+    # Local Mac path
+    local_path = Path.home() / "Documents" / "allcall_bi_data.xlsx"
+
+    # Current folder path
+    current_path = Path("allcall_bi_data.xlsx")
+
+    if cloud_path.exists():
+        return str(cloud_path)
+
+    if current_path.exists():
+        return str(current_path)
+
+    if local_path.exists():
+        return str(local_path)
+
+    raise FileNotFoundError(
+        "Excel файл олдсонгүй.\n"
+        "Checked:\n"
+        "1. data/allcall_bi_data.xlsx\n"
+        "2. ./allcall_bi_data.xlsx\n"
+        "3. ~/Documents/allcall_bi_data.xlsx"
+    )
+
+EXCEL_PATH = resolve_excel_path()
 
 # =========================
 # HELPERS
