@@ -24,32 +24,25 @@ CARD_BORDER = "rgba(255,255,255,0.10)"
 
 from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent   # app2.py нь dashboard/ дотор байгаа бол root руу 1 алхам дээшилнэ
+
 def resolve_excel_path():
+    candidates = [
+        PROJECT_ROOT / "data" / "allcall_bi_data.xlsx",   # Documents/allcall-bi-dashboard/data/...
+        BASE_DIR / "data" / "allcall_bi_data.xlsx",       # Documents/allcall-bi-dashboard/dashboard/data/...
+        PROJECT_ROOT / "allcall_bi_data.xlsx",
+        BASE_DIR / "allcall_bi_data.xlsx",
+        Path.home() / "Documents" / "allcall_bi_data.xlsx",
+    ]
 
-    # Cloud repo path
-    cloud_path = Path("data/allcall_bi_data.xlsx")
-
-    # Local Mac path
-    local_path = Path.home() / "Documents" / "allcall_bi_data.xlsx"
-
-    # Current folder path
-    current_path = Path("allcall_bi_data.xlsx")
-
-    if cloud_path.exists():
-        return str(cloud_path)
-
-    if current_path.exists():
-        return str(current_path)
-
-    if local_path.exists():
-        return str(local_path)
+    for p in candidates:
+        if p.exists():
+            return str(p)
 
     raise FileNotFoundError(
-        "Excel файл олдсонгүй.\n"
-        "Checked:\n"
-        "1. data/allcall_bi_data.xlsx\n"
-        "2. ./allcall_bi_data.xlsx\n"
-        "3. ~/Documents/allcall_bi_data.xlsx"
+        "Excel файл олдсонгүй. Checked paths:\n" +
+        "\n".join(str(p) for p in candidates)
     )
 
 EXCEL_PATH = resolve_excel_path()
