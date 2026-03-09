@@ -22,7 +22,7 @@ MUTED = "rgba(241,241,245,0.72)"
 CARD_BG = "rgba(255,255,255,0.10)"
 CARD_BORDER = "rgba(255,255,255,0.10)"
 
-EXCEL_PATH = "data/allcall_bi_data.xlsx"
+EXCEL_PATH = str(Path.home() / "Documents" / "allcall_bi_data.xlsx")
 
 # =========================
 # HELPERS
